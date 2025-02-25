@@ -14,9 +14,9 @@ poetry run python3 convert_to_vespa_format.py mind/
 docker-compose up --detach vespa
 
 # Build application package
-mvn clean generate-resources compile test package
+cd my-app && mvn clean generate-resources compile test package
 
-vespa deploy --wait 300
+vespa deploy --wait 300 my-app
 
 # Feed data
 vespa feed mind/vespa.json
