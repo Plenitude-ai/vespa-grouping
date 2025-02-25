@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  vespa:
+    image: vespaengine/vespa:8.411.13
+    container_name: vespa
+    ports:
+      - 8080:8080
+      - 19092:19092
+      - 19071:19071
+  

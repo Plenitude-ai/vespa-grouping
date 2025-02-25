@@ -1,0 +1,14 @@
+schema user {
+    document user {
+        field user_id type string {
+            indexing: summary | attribute
+            attribute: fast-search
+        }
+        field embedding type tensor<float>(d0[50]) {
+            indexing: summary | attribute
+            attribute {
+                distance-metric: dotproduct
+            }
+        }
+    }
+}

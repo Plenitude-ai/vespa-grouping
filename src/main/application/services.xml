@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services version="1.0">
+
+    <container id="default" version="1.0">
+        <!-- <search /> -->
+        <search>
+            <!-- <renderer id="default_json_renderer" class="my_package.DefaultJsonRenderer" bundle="my-bundle"/> -->
+            <chain id="user" inherits="vespa">
+                <searcher bundle="my-bundle" id="my_package.UserProfileSearcher"/>
+            </chain>
+            <chain id="dedup" inherits="vespa">
+                <searcher bundle="my-bundle" id="my_package.DedupSearcher"/>
+            </chain>
+            <chain id="configurable_dedup" inherits="vespa">
+                <searcher bundle="my-bundle" id="my_package.ConfigurableDedupSearcher"/>
+                <config name="my_package.dedup-searcher">
+                    <useDedup>true</useDedup>
+                    <maxCategories>2</maxCategories>
+                    <maxSubCategories>2</maxSubCategories>
+                </config>
+            </chain>
+        </search>
+        <document-api />
+        <nodes>
+            <node hostalias="node1" />
+        </nodes>
+    </container>
+
+    <content id="mind" version="1.0">
+        <redundancy>1</redundancy>
+        <documents>
+            <document type="news" mode="index" />
+            <document type="user" mode="index" />
+            <document type="category_ctr" mode="index" global="true" />
+        </documents>
+        <nodes>
+            <node hostalias="node1" distribution-key="0" />
+        </nodes>
+    </content>
+
+</services>

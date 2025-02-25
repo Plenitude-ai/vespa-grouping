@@ -1,0 +1,5 @@
+package=my_package
+
+useDedup         bool    default=true
+maxCategories    int     default=2
+maxSubCategories int     default=2

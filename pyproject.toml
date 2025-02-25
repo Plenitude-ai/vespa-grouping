@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "tuto-vespa"
+version = "0.1.0"
+description = ""
+authors = ["Axel Durand <a.durand@qwant.com>"]
+readme = "news/README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ipykernel = "^6.27.1"
+numpy = "^2.2.3"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pylint.'MESSAGES CONTROL']
+# max-line-length = 88
+# See: https://pylint.pycqa.org/en/latest/user_guide/messages/messages_overview.html#messages-overview
+disable = [
+    "C0114", # missing-module-docstring
+    "C0115", # missing-class-docstring
+    "C0116", # missing-function-docstring
+    "R0903", # too-few-public-methods
+    "R0902", # too-many-instance-attributes
+    "R0913", # too-many-arguments
+    "C0103", # invalid-name
+    "W0511", # fixme
+    "R0801", # duplicate-code
+    "W1401", # anomalous-backslash-in-string
+    "R0914", # too-many-locals
+    "R1710", # inconsistent-return-statements
+    "W0221", # arguments-differ
+    "W3101", # missing-timeout
+    "C0209", # consider-using-f-string
+]
+# ignore-paths = "libs/"
+# ignored-modules = "numpy,torch"
+# good-names = [
+#     "h1"
+# ]

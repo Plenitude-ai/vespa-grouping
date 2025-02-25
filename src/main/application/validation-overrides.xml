@@ -1,0 +1,4 @@
+<validation-overrides>
+    <allow until="2025-02-28">content-cluster-removal</allow>
+    <allow until="2025-02-28">field-type-change</allow>
+</validation-overrides>
