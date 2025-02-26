@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tuto-vespa"
+name = "vespa-grouping"
 version = "0.1.0"
 description = ""
 authors = ["Axel Durand <a.durand@qwant.com>"]
