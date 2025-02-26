@@ -14,7 +14,7 @@ poetry run python3 convert_to_vespa_format.py mind/
 docker-compose up --detach vespa
 
 # Build application package
-cd my-app && mvn clean generate-resources compile test package
+mvn clean generate-resources package -f my-app -Dmaven.test.skip
 
 vespa deploy --wait 300 my-app
 
@@ -22,4 +22,4 @@ vespa deploy --wait 300 my-app
 vespa feed mind/vespa.json
 
 # Test with query
-vespa query "query=test" | jq
+vespa query "query=test" "hits=3" | jq
