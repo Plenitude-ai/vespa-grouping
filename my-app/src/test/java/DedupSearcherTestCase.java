@@ -6,6 +6,11 @@ import org.junit.Assert;
 import com.yahoo.search.searchchain.Execution;
 import com.yahoo.search.result.*;
 import com.yahoo.search.Searcher;
+import com.yahoo.search.grouping.Continuation;
+import com.yahoo.search.grouping.result.Group;
+import com.yahoo.search.grouping.result.GroupList;
+import com.yahoo.search.grouping.result.RootGroup;
+import com.yahoo.search.grouping.result.StringId;
 import com.yahoo.component.chain.Chain;
 
 import com.yahoo.search.Query;
@@ -43,29 +48,60 @@ public class DedupSearcherTestCase {
         public Result search(Query query, Execution execution) {
             Result result = new Result(query);
 
-            HitGroup root = new HitGroup("toplevel");
+            RootGroup root_group = new RootGroup(0, new Continuation() {
+                @Override
+                public Continuation copy() {
+                    return null;
+                }
+
+                @Override
+                public String toString() {
+                    return "AAAA";
+                }
+            });
+            GroupList root_gl = new GroupList("category");
+            root_group.add(root_gl);
 
             String categ = "news";
+            Group news_group = new Group(new StringId(categ), new Relevance(1.0));
+            root_gl.add(news_group);
+            GroupList news_gl = new GroupList("subcategory");
+            news_group.add(news_gl);
+
             String subcateg = "tech";
-            root.add(defineHitExample("news_tech_1", categ, subcateg, 0.99));
-            root.add(defineHitExample("news_tech_2", categ, subcateg, 0.89));
-            root.add(defineHitExample("news_tech_3", categ, subcateg, 0.79));
+            Group news_tech_group = new Group(new StringId(subcateg), new Relevance(1.0));
+            news_tech_group.add(defineHitExample("news_tech_1", categ, subcateg, 0.99));
+            news_tech_group.add(defineHitExample("news_tech_2", categ, subcateg, 0.89));
+            news_tech_group.add(defineHitExample("news_tech_3", categ, subcateg, 0.79));
+            news_gl.add(news_tech_group);
+
             subcateg = "us";
-            root.add(defineHitExample("news_us_1", categ, subcateg, 0.98));
-            root.add(defineHitExample("news_us_2", categ, subcateg, 0.88));
-            root.add(defineHitExample("news_us_3", categ, subcateg, 0.78));
+            Group news_us_group = new Group(new StringId(subcateg), new Relevance(1.0));
+            news_us_group.add(defineHitExample("news_us_1", categ, subcateg, 0.98));
+            news_us_group.add(defineHitExample("news_us_2", categ, subcateg, 0.88));
+            news_us_group.add(defineHitExample("news_us_3", categ, subcateg, 0.78));
+            news_gl.add(news_us_group);
+
             subcateg = "business";
-            root.add(defineHitExample("news_business_1", categ, subcateg, 0.97));
-            root.add(defineHitExample("news_business_2", categ, subcateg, 0.87));
-            root.add(defineHitExample("news_business_3", categ, subcateg, 0.77));
+            Group news_business_group = new Group(new StringId(subcateg), new Relevance(1.0));
+            news_business_group.add(defineHitExample("news_business_1", categ, subcateg, 0.97));
+            news_business_group.add(defineHitExample("news_business_2", categ, subcateg, 0.87));
+            news_business_group.add(defineHitExample("news_business_3", categ, subcateg, 0.77));
+            news_gl.add(news_business_group);
 
             categ = "finance";
+            Group finance_group = new Group(new StringId(categ), new Relevance(1.0));
+            root_gl.add(finance_group);
+            GroupList finance_gl = new GroupList("subcategory");
+            finance_group.add(finance_gl);
             subcateg = "companies";
-            root.add(defineHitExample("finance_companies_1", categ, subcateg, 0.96));
-            root.add(defineHitExample("finance_companies_2", categ, subcateg, 0.86));
-            root.add(defineHitExample("finance_companies_3", categ, subcateg, 0.76));
+            Group finance_companies_group = new Group(new StringId(subcateg), new Relevance(1.0));
+            finance_companies_group.add(defineHitExample("finance_companies_1", categ, subcateg, 0.96));
+            finance_companies_group.add(defineHitExample("finance_companies_2", categ, subcateg, 0.86));
+            finance_companies_group.add(defineHitExample("finance_companies_3", categ, subcateg, 0.76));
+            finance_gl.add(finance_companies_group);
 
-            result.setHits(root);
+            result.hits().add(root_group);
             return result;
         }
     }
