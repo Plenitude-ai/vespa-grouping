@@ -1,4 +1,6 @@
 mind/
 .env
-.vscode
 target
+
+.vscode/
+!.vscode/launch.json

@@ -23,6 +23,8 @@
         <document-api />
         <nodes>
             <node hostalias="node1" />
+            <!-- For debugging: works only if docker port 5005 is OPEN -->
+            <jvm options="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" />
         </nodes>
     </container>
 
