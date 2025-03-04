@@ -12,16 +12,11 @@
         },
         {
             "type": "java",
-            "name": "Debug (Attach) (remote debugging)",
-            // "projectName": "my_package",
+            "name": "JAVA Debug (Attach) (remote debugging)",
             "request": "attach",
             "hostName": "localhost",
             "port": 5005,
-            "timeout": 1000000,
-            // "sourcePaths": [
-            //     "${workspaceFolder}/src",
-            //     "/path/to/remote/src"
-            // ]
+            "timeout": 1000000
         }
     ]
 }
